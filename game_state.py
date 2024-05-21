@@ -143,6 +143,25 @@ class GameState:
         menu_rect = menu_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 30))
         screen.blit(menu_text, menu_rect)
 
+    def reset(self):
+        # Reset players' HP
+        self.player1.hp = self.player1.max_hp
+        self.player2.hp = self.player2.max_hp
+        
+        # Reset players' positions
+        self.player1.rect.topleft = (175, 350)
+        self.player2.rect.topleft = (475, 250)
+        
+        # Reset combo counts
+        self.player1.combo_count = 0
+        self.player2.combo_count = 0
+        
+        # Reset winner
+        self.winner = None
+
+        # Reset game_over flag
+        self.game_over = False
+
     def draw_health_bars(self, screen):
         for player, x in [(self.player1, 10), (self.player2, SCREEN_WIDTH - 210)]:
             pygame.draw.rect(screen, RED, (x, 10, 200, 20))

@@ -8,10 +8,10 @@ def main():
     pygame.display.set_caption('PyBrawl')
     clock = pygame.time.Clock()
     game_state = GameState()
-
     running = True
     main_screen = True  # Flag to indicate if it's the main home screen
     game_running = False  # Flag to indicate if the game is currently running
+    game_over = False  # Flag to indicate if the game is over
 
     while running:
         for event in pygame.event.get():
@@ -22,30 +22,34 @@ def main():
                     if event.key == pygame.K_SPACE:
                         main_screen = False
                         game_running = True
-                elif game_running:
+                        game_state.reset()  # Reset game state when starting a new game
+                elif game_over:
                     if event.key == pygame.K_ESCAPE:
+                        running = False  # Quit the game if ESC is pressed
+                    elif event.key == pygame.K_SPACE:
                         main_screen = True
                         game_running = False
-        # Check if the game is running before updating the game state
-        if game_running:
-            game_state.update()
+                        game_over = False  # Reset game over flag
+                        game_state.reset()  # Reset game state when going back to main screen
 
         if main_screen:
             # Main home screen
-            screen.fill(BLACK)  # Example background color
-            # Display main home screen content (e.g., title, instructions)
-            # You can use pygame.draw and pygame.font to create content
-            
-            # Example code to display text
+            screen.fill(BLACK)
             font = pygame.font.Font(FONT_NAME, FONT_SIZE)
             text = font.render("Press SPACE to start", True, WHITE)
             text_rect = text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
             screen.blit(text, text_rect)
-
         elif game_running:
             # Game is running
-            game_state.draw(screen)
-        
+            if not game_state.is_game_over():
+                game_state.update()
+                game_state.draw(screen)
+            if game_state.is_game_over():
+                game_over = True
+        elif game_over:
+            # Game over screen
+            game_state.draw_game_over(screen)
+
         pygame.display.flip()
         clock.tick(FPS)
 
@@ -53,4 +57,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
