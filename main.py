@@ -26,10 +26,13 @@ def main():
                     if event.key == pygame.K_ESCAPE:
                         main_screen = True
                         game_running = False
+        # Check if the game is running before updating the game state
+        if game_running:
+            game_state.update()
 
         if main_screen:
             # Main home screen
-            screen.fill(BLUE)  # Example background color
+            screen.fill(BLACK)  # Example background color
             # Display main home screen content (e.g., title, instructions)
             # You can use pygame.draw and pygame.font to create content
             
@@ -41,7 +44,6 @@ def main():
 
         elif game_running:
             # Game is running
-            game_state.update()
             game_state.draw(screen)
         
         pygame.display.flip()
@@ -51,3 +53,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+

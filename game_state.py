@@ -22,6 +22,9 @@ class GameState:
         self.combo_text = ""
         self.combo_display_timer = 0
 
+        self.game_over = False
+        self.winner = None
+
 
     def update(self):
         keys = pygame.key.get_pressed()
@@ -39,6 +42,12 @@ class GameState:
         self.check_boundaries()
         self.check_win_conditions()
         self.check_drop_through_platforms()
+
+        if self.game_over:
+            return
+
+        # Check win conditions
+        self.check_win_conditions()
 
     def check_attacks(self):
         keys = pygame.key.get_pressed()
@@ -87,6 +96,8 @@ class GameState:
         self.player2.draw_damage_text(screen, SCREEN_WIDTH - 210, 90)  # Damage text position adjusted
         self.player1.draw_combo_text(screen, SCREEN_WIDTH - 210, 120, self.player2)
         self.player2.draw_combo_text(screen, 10, 120, self.player1)
+        if self.game_over:
+            self.draw_game_over(screen)
 
     def check_boundaries(self):
         for player in [self.player1, self.player2]:
@@ -102,13 +113,35 @@ class GameState:
 
     def check_win_conditions(self):
         if self.player1.hp == 0:
-            print("Player 2 wins!")
-            pygame.quit()
-            exit()
-        if self.player2.hp == 0:
-            print("Player 1 wins!")
-            pygame.quit()
-            exit()
+            self.winner = "Player 2"
+            self.game_over = True
+        elif self.player2.hp == 0:
+            self.winner = "Player 1"
+            self.game_over = True
+
+
+    def get_winner_text(self):
+        font = pygame.font.Font(FONT_NAME, FONT_SIZE)
+        winner_text = font.render(f"{self.winner} Wins!", True, WHITE)
+        return winner_text
+    
+    def is_game_over(self):
+        return self.game_over
+    
+    def draw_game_over(self, screen):
+        screen.fill(BLACK)
+        font = pygame.font.Font(FONT_NAME, FONT_SIZE)
+        winner_text = font.render(f"{self.winner} wins!", True, WHITE)
+        winner_rect = winner_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 50))
+        screen.blit(winner_text, winner_rect)
+
+        menu_text = font.render("Press SPACE to Start Again", True, WHITE)
+        menu_rect = menu_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 ))
+        screen.blit(menu_text, menu_rect)
+
+        menu_text = font.render("Press ESC to Exit", True, WHITE)
+        menu_rect = menu_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 30))
+        screen.blit(menu_text, menu_rect)
 
     def draw_health_bars(self, screen):
         for player, x in [(self.player1, 10), (self.player2, SCREEN_WIDTH - 210)]:
