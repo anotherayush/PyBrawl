@@ -34,7 +34,7 @@ def main():
             # You can use pygame.draw and pygame.font to create content
             
             # Example code to display text
-            font = pygame.font.Font(None, 36)
+            font = pygame.font.Font(FONT_NAME, FONT_SIZE)
             text = font.render("Press SPACE to start", True, WHITE)
             text_rect = text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
             screen.blit(text, text_rect)

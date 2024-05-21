@@ -106,8 +106,10 @@ class Player(pygame.sprite.Sprite):
         self.damage_display_timer = pygame.time.get_ticks()
 
     def is_opponent_in_attack_range(self, opponent):
-        distance = abs(self.rect.x - opponent.rect.x)
-        if distance <= ATTACK_RANGE:
+        distance_x = abs(self.rect.x - opponent.rect.x)
+        distance_y = abs(self.rect.y - opponent.rect.y)
+        
+        if distance_x <= ATTACK_RANGE and distance_y <= PLAYER_HEIGHT:  # Adjusted condition
             if self.facing_right and self.rect.x < opponent.rect.x:
                 return True
             elif not self.facing_right and self.rect.x > opponent.rect.x:
