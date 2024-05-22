@@ -1,16 +1,13 @@
 import pygame
 from player import Player
-from game_platform import Platform
+from game_platform import Platform, PlatformSelector
 from settings import *
 import time
 
 class GameState:
-    def __init__(self):
+    def __init__(self, platforms=None):
         # Create platforms
-        self.platforms = pygame.sprite.Group()
-        self.platforms.add(Platform(150, 400, PLATFORM_WIDTHS[2]))
-        self.platforms.add(Platform(300, 300, PLATFORM_WIDTHS[2]))
-        self.platforms.add(Platform(450, 200, PLATFORM_WIDTHS[2]))
+        self.platforms = pygame.sprite.Group(platforms)
 
         # Create players and place them on platforms
         self.player1 = Player(175, 350, RED, {'left': pygame.K_a, 'right': pygame.K_d, 'jump': pygame.K_w, 'drop': pygame.K_s, 'attack': pygame.K_SPACE}, attack_color=YELLOW, attack_damage=ATTACK_DAMAGE, max_hp=PLAYER_MAX_HP)
@@ -18,13 +15,15 @@ class GameState:
 
         self.all_sprites = pygame.sprite.Group(self.player1, self.player2, *self.platforms)
         self.font = pygame.font.Font(FONT_NAME, FONT_SIZE)
-
+ 
         self.combo_text = ""
         self.combo_display_timer = 0
 
         self.game_over = False
         self.winner = None
 
+    def initialize_platforms(self, platforms):
+        self.platforms = pygame.sprite.Group(platforms)
 
     def update(self):
         keys = pygame.key.get_pressed()

@@ -22,6 +22,7 @@ YELLOW = (255, 255, 0)
 PURPLE = (128, 0, 128)
 BROWN = (128, 64, 128)
 DARK_GREEN = (64, 255 , 64)
+GRAY = (200, 200, 200)
 
 # Platform settings
 PLATFORM_WIDTHS = [200, 250, 300]
