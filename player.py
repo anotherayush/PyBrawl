@@ -128,16 +128,16 @@ class Player(pygame.sprite.Sprite):
     
     def handle_attack(self, opponent, overlapping=False):
         current_time = pygame.time.get_ticks()
-    
+
         if self.attack_cooldown == 0:
             if overlapping or self.is_opponent_in_attack_range(opponent):
                 self.attack(opponent)
                 self.attack_timer = ATTACK_DURATION
                 self.attack_cooldown = ATTACK_COOLDOWN
-    
+
                 # Check time difference since last attack
                 time_difference = current_time - self.last_attack_time
-    
+
                 if time_difference <= COMBO_WINDOW_DURATION:
                     # Increment combo count if within combo window
                     self.combo_count += 1
@@ -146,13 +146,20 @@ class Player(pygame.sprite.Sprite):
                     # Reset combo count and timer if outside combo window
                     self.combo_count = 1
                     self.combo_timer = 0
-    
+
                 # Update last attack time
                 self.last_attack_time = current_time
-    
+
                 # Update combo text
                 self.combo_text = f"COMBO x{self.combo_count}"
                 self.combo_display_timer = pygame.time.get_ticks()  # Start combo text display timer
+
+                # Apply knockback
+                knockback_distance = KNOCKBACK_DISTANCE + 10 * (self.combo_count - 1)
+                if self.rect.x < opponent.rect.x:
+                    opponent.rect.x += knockback_distance
+                else:
+                    opponent.rect.x -= knockback_distance
 
     def attack(self, opponent):
         base_damage = 10
