@@ -52,15 +52,15 @@ class PlatformSelector:
             ]
         elif selected_platform == 2:
             platforms = [
-                Platform(40, 200, 350, 25),
+                Platform(80, 280, 350, 25),
                 Platform(250, 450, 400, 25),
-                Platform(600, 300, 350, 25)
+                Platform(580, 330, 350, 25)
 ]
         elif selected_platform == 3:
             platforms = [
                 Platform(100, 400, 250, 25),
                 Platform(450, 330, 300, 25),
-                Platform(250, 200, 200, 25)
+                Platform(220, 200, 200, 25)
             ]
         elif selected_platform == 4:
             platforms = [

@@ -10,8 +10,8 @@ class GameState:
         self.platforms = pygame.sprite.Group(platforms)
 
         # Create players and place them on platforms
-        self.player1 = Player(175, 350, RED, {'left': pygame.K_a, 'right': pygame.K_d, 'jump': pygame.K_w, 'drop': pygame.K_s, 'attack': pygame.K_SPACE}, attack_color=YELLOW, attack_damage=ATTACK_DAMAGE, max_hp=PLAYER_MAX_HP)
-        self.player2 = Player(475, 250, BLUE, {'left': pygame.K_LEFT, 'right': pygame.K_RIGHT, 'jump': pygame.K_UP, 'drop': pygame.K_DOWN, 'attack': pygame.K_RSHIFT}, attack_color=PURPLE, attack_damage=ATTACK_DAMAGE, max_hp=PLAYER_MAX_HP)
+        self.player1 = Player(400, 350, RED, {'left': pygame.K_a, 'right': pygame.K_d, 'jump': pygame.K_w, 'drop': pygame.K_s, 'attack': pygame.K_SPACE}, attack_color=YELLOW, attack_damage=ATTACK_DAMAGE, max_hp=PLAYER_MAX_HP)
+        self.player2 = Player(400, 250, BLUE, {'left': pygame.K_LEFT, 'right': pygame.K_RIGHT, 'jump': pygame.K_UP, 'drop': pygame.K_DOWN, 'attack': pygame.K_RCTRL}, attack_color=PURPLE, attack_damage=ATTACK_DAMAGE, max_hp=PLAYER_MAX_HP)
 
         self.all_sprites = pygame.sprite.Group(self.player1, self.player2, *self.platforms)
         self.font = pygame.font.Font(FONT_NAME, FONT_SIZE)
@@ -148,8 +148,8 @@ class GameState:
         self.player2.hp = self.player2.max_hp
         
         # Reset players' positions
-        self.player1.rect.topleft = (175, 350)
-        self.player2.rect.topleft = (475, 250)
+        self.player1.rect.topleft = (175, 35)
+        self.player2.rect.topleft = (625, 25)
         
         # Reset combo counts
         self.player1.combo_count = 0
