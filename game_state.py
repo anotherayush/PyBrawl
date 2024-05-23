@@ -2,7 +2,7 @@ import pygame
 from player import Player
 from game_platform import Platform, PlatformSelector
 from settings import *
-import time
+from sounds import *
 
 class GameState:
     def __init__(self, platforms=None):
@@ -181,6 +181,7 @@ class GameState:
             # Check if the player wants to drop through the current platform
             keys = pygame.key.get_pressed()
             if keys[player.controls['drop']]:
+                drop_sound.play()
                 player.drop_through_platforms = True
                 player.on_ground = False
                 player.can_double_jump = False

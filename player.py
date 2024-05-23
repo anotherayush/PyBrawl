@@ -1,5 +1,6 @@
 import pygame
 from settings import *
+from sounds import *
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y, color, controls, attack_color, attack_damage, max_hp):
@@ -34,6 +35,7 @@ class Player(pygame.sprite.Sprite):
         self.combo_count = 0  # Initialize combo count
         self.combo_window_duration = 1000  # Combo window duration in milliseconds
         self.last_attack_time = 0  # Time of the last attack
+        self.jump_sound_played = False
 
     def update_image(self):
         self.image = pygame.transform.rotate(self.base_image, 90 if self.facing_right else -90)
@@ -53,13 +55,22 @@ class Player(pygame.sprite.Sprite):
             self.rect.x += self.speed
             self.facing_right = True
 
-        if keys[self.controls['jump']]:
+        if keys[self.controls['jump']] and not self.jump_sound_played:
+            # Play jump sound
+            jump_sound.play()
+            self.jump_sound_played = True
+
+            # Check if the player is on the ground
             if self.on_ground:
                 self.velocity_y = -self.jump_height
                 self.on_ground = False
             elif self.can_double_jump:
                 self.velocity_y = -self.jump_height
                 self.can_double_jump = False
+
+        # If the jump key is not pressed, reset the flag
+        if not keys[self.controls['jump']]:
+            self.jump_sound_played = False
 
         self.rect.y += self.velocity_y
 
@@ -104,6 +115,7 @@ class Player(pygame.sprite.Sprite):
             self.combo_count += 1  # Increment combo count if combo is not 1
             self.combo_timer = COMBO_DISPLAY_DURATION
         self.damage_display_timer = pygame.time.get_ticks()
+        damage_sound.play()
 
     def is_opponent_in_attack_range(self, opponent):
         distance_x = abs(self.rect.x - opponent.rect.x)
@@ -174,6 +186,7 @@ class Player(pygame.sprite.Sprite):
         # Assign total_damage directly to opponent's take_damage method
         opponent.take_damage(total_damage, self.combo_count)
         opponent.rect.x += knockback if self.rect.x < opponent.rect.x else -knockback
+        attack_sound.play()
 
     def reset_attack(self):
         self.attack_timer = 0
