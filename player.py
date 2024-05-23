@@ -57,6 +57,7 @@ class Player(pygame.sprite.Sprite):
 
         if keys[self.controls['jump']] and not self.jump_sound_played:
             # Play jump sound
+            jump_sound.set_volume(0.3)
             jump_sound.play()
             self.jump_sound_played = True
 
@@ -186,6 +187,7 @@ class Player(pygame.sprite.Sprite):
         # Assign total_damage directly to opponent's take_damage method
         opponent.take_damage(total_damage, self.combo_count)
         opponent.rect.x += knockback if self.rect.x < opponent.rect.x else -knockback
+        attack_sound.set_volume(0.6)
         attack_sound.play()
 
     def reset_attack(self):

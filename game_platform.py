@@ -1,6 +1,6 @@
 import pygame
 from settings import *
-from random import randint
+from sounds import click_sound
 
 class Platform(pygame.sprite.Sprite):
     def __init__(self, x, y, width, height):
@@ -33,12 +33,16 @@ class PlatformSelector:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_1:
                     self.selected_platform = 1
+                    click_sound.play()
                 elif event.key == pygame.K_2:
                     self.selected_platform = 2
+                    click_sound.play()
                 elif event.key == pygame.K_3:
                     self.selected_platform = 3
+                    click_sound.play()
                 elif event.key == pygame.K_4:
                     self.selected_platform = 4
+                    click_sound.play()
     
     def get_selected_platform(self):
         return self.selected_platform
@@ -60,7 +64,7 @@ class PlatformSelector:
             platforms = [
                 Platform(100, 400, 250, 25),
                 Platform(450, 330, 300, 25),
-                Platform(220, 200, 200, 25)
+                Platform(220, 230, 200, 25)
             ]
         elif selected_platform == 4:
             platforms = [

@@ -3,6 +3,7 @@ import pygame
 from settings import *
 from game_state import GameState
 from game_platform import PlatformSelector
+from sounds import click_sound
 
 def main():
     pygame.init()
@@ -27,10 +28,12 @@ def main():
                     if event.key == pygame.K_SPACE:
                         main_screen = False
                         platform_selection = True
+                        click_sound.play()
                     elif event.key == pygame.K_1:
                         main_screen = False
                         game_running = True
                         game_state.reset()  # Reset game state when starting a new game
+                        click_sound.play()
                 elif platform_selection:
                     platform_selector.handle_events(events)
                     if event.key == pygame.K_RETURN:
@@ -40,6 +43,7 @@ def main():
                         platforms = platform_selector.create_platforms(selected_platform)
                         game_state = GameState(platforms)  # Create GameState with selected platforms
                         game_state.reset()
+                        click_sound.play()
                 elif game_over:
                     if event.key == pygame.K_ESCAPE:
                         running = False
@@ -48,6 +52,7 @@ def main():
                         game_running = False
                         game_over = False
                         game_state.reset()
+                        click_sound.play()
 
         if main_screen:
             # Main home screen
