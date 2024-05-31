@@ -1,4 +1,5 @@
 import pygame
+import pygame.mixer
 pygame.mixer.init()
 
 attack_sound = pygame.mixer.Sound('assets/audio/attack.wav')

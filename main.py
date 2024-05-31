@@ -1,5 +1,5 @@
-# main.py
 import pygame
+import pygame.mixer
 from settings import *
 from game_state import GameState
 from game_platform import PlatformSelector
@@ -17,6 +17,9 @@ def main():
     game_running = False
     game_over = False
     platform_selection = False
+    pygame.mixer.music.load('assets/audio/back.wav')
+    pygame.mixer.music.set_volume(0.4)
+    pygame.mixer.music.play(-1)
 
     while running:
         events = pygame.event.get()
