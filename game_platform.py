@@ -8,6 +8,7 @@ class Platform(pygame.sprite.Sprite):
         self.image = pygame.image.load(image_path).convert_alpha()
         self.image = pygame.transform.scale(self.image, (width, height))
         self.rect = self.image.get_rect(topleft=(x, y))
+        self.background = pygame.image.load("assets/art/back.png").convert()
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
@@ -16,9 +17,10 @@ class Platform(pygame.sprite.Sprite):
 class PlatformSelector:
     def __init__(self):
         self.selected_platform = 1
+        self.background = pygame.image.load("assets/art/back.png").convert()
 
     def draw(self, screen):
-        screen.fill(BLACK)
+        screen.blit(self.background, (0, 0))
         font = pygame.font.Font(FONT_NAME, FONT_SIZE)
         text = font.render("Select Platform (1, 2, 3, or 4)", True, WHITE)
         text_rect = text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 50))

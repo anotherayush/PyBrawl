@@ -21,6 +21,8 @@ class GameState:
 
         self.game_over = False
         self.winner = None
+        self.background = pygame.image.load("assets/art/back1.png").convert()
+        self.bgo = pygame.image.load("assets/art/back.png").convert()
 
     def initialize_platforms(self, platforms):
         self.platforms = pygame.sprite.Group(platforms)
@@ -87,7 +89,7 @@ class GameState:
                 attacker.update_combo_text()
 
     def draw(self, screen):
-        screen.fill(BLACK)
+        screen.blit(self.background, (0, 0))
         self.all_sprites.draw(screen)
         self.draw_health_bars(screen)
         self.draw_hp_text(screen)
@@ -128,7 +130,7 @@ class GameState:
         return self.game_over
     
     def draw_game_over(self, screen):
-        screen.fill(BLACK)
+        screen.blit(self.bgo, (0, 0))
         font = pygame.font.Font(FONT_NAME, FONT_SIZE)
         winner_text = font.render(f"{self.winner} wins!", True, WHITE)
         winner_rect = winner_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 50))
@@ -167,11 +169,11 @@ class GameState:
             pygame.draw.rect(screen, GREEN, (x, 10, player.hp * 2, 20))
     
     def draw_hp_text(self, screen):
-        player1_hp_text = self.font.render(f"HP: {self.player1.hp}", True, WHITE)
-        player2_hp_text = self.font.render(f"HP: {self.player2.hp}", True, WHITE)
+        player1_hp_text = self.font.render(f"HP  {self.player1.hp}", True, WHITE)
+        player2_hp_text = self.font.render(f"{self.player2.hp}   HP", True, WHITE)
         combo_text_surface = self.font.render(self.combo_text, True, WHITE)
-        screen.blit(player1_hp_text, (10, 40))
-        screen.blit(player2_hp_text, (SCREEN_WIDTH - 210, 40))
+        screen.blit(player1_hp_text, (15, 52))
+        screen.blit(player2_hp_text, (SCREEN_WIDTH - 105, 52))
         screen.blit(combo_text_surface, (SCREEN_WIDTH - 210, 70))
 
     def check_drop_through_platforms(self):

@@ -20,6 +20,7 @@ def main():
     pygame.mixer.music.load('assets/audio/back.wav')
     pygame.mixer.music.set_volume(0.4)
     pygame.mixer.music.play(-1)
+    background = pygame.image.load("assets/art/back.png").convert()
 
     while running:
         events = pygame.event.get()
@@ -59,7 +60,7 @@ def main():
 
         if main_screen:
             # Main home screen
-            screen.fill(BLACK)
+            screen.blit(background, (0, 0))
             font = pygame.font.Font(FONT_NAME, FONT_SIZE)
             text = font.render("Press SPACE to start", True, WHITE)
             text_rect = text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
