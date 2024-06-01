@@ -51,36 +51,32 @@ class PlatformSelector:
         platforms = []
 
         if selected_platform == 1:
-            # Original lengths: Platform(100, 400, 300, 25)
-            for x in range(100, 400, 25):  # Start at x = 100, add blocks at intervals of 25 until 400
+            for x in range(100, 400, 25):
                 platforms.append(Platform(x, 400, 25, 25, "assets/art/platform.png"))
-            for x in range(500, 700, 25):  # Start at x = 500, add blocks at intervals of 25 until 700
+            for x in range(500, 700, 25):
                 platforms.append(Platform(x, 300, 25, 25, "assets/art/platform.png"))
-            for x in range(700, 950, 25):  # Start at x = 700, add blocks at intervals of 25 until 950
+            for x in range(700, 950, 25):
                 platforms.append(Platform(x, 200, 25, 25, "assets/art/platform.png"))
         elif selected_platform == 2:
-            # Original lengths: Platform(80, 280, 350, 25)
-            for x in range(80, 430, 25):  # Start at x = 80, add blocks at intervals of 25 until 430
+            for x in range(80, 430, 25):
                 platforms.append(Platform(x, 280, 25, 25, "assets/art/platform.png"))
-            for x in range(250, 650, 25):  # Start at x = 250, add blocks at intervals of 25 until 650
+            for x in range(250, 650, 25): 
                 platforms.append(Platform(x, 450, 25, 25, "assets/art/platform.png"))
-            for x in range(580, 930, 25):  # Start at x = 580, add blocks at intervals of 25 until 930
+            for x in range(580, 930, 25):
                 platforms.append(Platform(x, 330, 25, 25, "assets/art/platform.png"))
         elif selected_platform == 3:
-            # Original lengths: Platform(100, 400, 300, 25)
-            for x in range(100, 400, 25):  # Start at x = 100, add blocks at intervals of 25 until 400
+            for x in range(100, 400, 25):
                 platforms.append(Platform(x, 400, 25, 25, "assets/art/platform.png"))
-            for x in range(450, 750, 25):  # Start at x = 450, add blocks at intervals of 25 until 750
+            for x in range(450, 750, 25): 
                 platforms.append(Platform(x, 330, 25, 25, "assets/art/platform.png"))
-            for x in range(220, 420, 25):  # Start at x = 220, add blocks at intervals of 25 until 420
+            for x in range(220, 420, 25): 
                 platforms.append(Platform(x, 230, 25, 25, "assets/art/platform.png"))
         elif selected_platform == 4:
-            # Original lengths: Platform(600, 450, 400, 25)
-            for x in range(600, 1000, 25):  # Start at x = 600, add blocks at intervals of 25 until 1000
+            for x in range(600, 1000, 25):
                 platforms.append(Platform(x, 450, 25, 25, "assets/art/platform.png"))
-            for x in range(300, 550, 25):  # Start at x = 300, add blocks at intervals of 25 until 550
+            for x in range(300, 550, 25):
                 platforms.append(Platform(x, 350, 25, 25, "assets/art/platform.png"))
-            for x in range(50, 350, 25):  # Start at x = 50, add blocks at intervals of 25 until 350
+            for x in range(50, 350, 25):
                 platforms.append(Platform(x, 250, 25, 25, "assets/art/platform.png"))
         else:
             platforms = []
